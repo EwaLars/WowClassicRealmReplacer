@@ -43,6 +43,7 @@ Partial Class Main
         Me.TextBoxPathToWoW.ReadOnly = True
         Me.TextBoxPathToWoW.Size = New System.Drawing.Size(532, 20)
         Me.TextBoxPathToWoW.TabIndex = 0
+        Me.TextBoxPathToWoW.Text = "C:\Program Files (x86)\World of Warcraft"
         '
         'TextBoxOldRealmName
         '
@@ -109,7 +110,7 @@ Partial Class Main
         '
         'ButtonGo
         '
-        Me.ButtonGo.Location = New System.Drawing.Point(681, 103)
+        Me.ButtonGo.Location = New System.Drawing.Point(681, 130)
         Me.ButtonGo.Name = "ButtonGo"
         Me.ButtonGo.Size = New System.Drawing.Size(75, 23)
         Me.ButtonGo.TabIndex = 3
@@ -119,7 +120,7 @@ Partial Class Main
         'ButtonCancel
         '
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(594, 103)
+        Me.ButtonCancel.Location = New System.Drawing.Point(594, 130)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(75, 23)
         Me.ButtonCancel.TabIndex = 3
@@ -147,7 +148,7 @@ Partial Class Main
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.ButtonCancel
-        Me.ClientSize = New System.Drawing.Size(800, 184)
+        Me.ClientSize = New System.Drawing.Size(800, 162)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonGo)
         Me.Controls.Add(Me.ButtonBrowse)
@@ -160,7 +161,7 @@ Partial Class Main
         Me.Controls.Add(Me.TextBoxNewaRealmName)
         Me.Controls.Add(Me.TextBoxOldRealmName)
         Me.Controls.Add(Me.TextBoxPathToWoW)
-        Me.MaximumSize = New System.Drawing.Size(816, 223)
+        Me.MaximumSize = New System.Drawing.Size(816, 201)
         Me.MinimumSize = New System.Drawing.Size(816, 183)
         Me.Name = "Main"
         Me.Text = "WoW Realm Replacer"
