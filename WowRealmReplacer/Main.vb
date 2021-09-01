@@ -14,6 +14,8 @@ Public Class Main
         Dim classicPath As String = Path.Combine(Me.TextBoxPathToWoW.Text, "_classic_")
         Dim wtfPath As String = Path.Combine(Me.TextBoxPathToWoW.Text, "_classic_", "WTF")
         Dim accountPath As String = Path.Combine(wtfPath, "Account", Me.TextBoxAccountName.Text)
+        Dim savedVariablesPath As String = Path.Combine(accountPath, "SavedVariables")
+        Dim savedVariablesPathBackup As String = Path.Combine(accountPath, "SavedVariables" & "_" & Now.Ticks)
         Dim oldRealmFolder As String = Path.Combine(accountPath, Me.TextBoxOldRealmName.Text)
         Dim newRealmFolder As String = Path.Combine(accountPath, Me.TextBoxNewaRealmName.Text)
         Dim newRealmFolderBackup As String = Path.Combine(accountPath, Me.TextBoxNewaRealmName.Text & "_" & Now.Ticks)
@@ -23,7 +25,7 @@ Public Class Main
             Exit Sub
         End If
         '>>> check if account folder exists
-        If Not File.Exists(oldRealmFolder) Then
+        If Not Directory.Exists(oldRealmFolder) Then
             MsgBox($"couldn't find account folder '{oldRealmFolder}'")
             Exit Sub
         End If
@@ -53,6 +55,19 @@ Public Class Main
             filecontent = filecontent.Replace(Me.TextBoxOldRealmName.Text, Me.TextBoxNewaRealmName.Text)
             File.WriteAllText(newPath, filecontent, Encoding.UTF8)
         Next
+        '>>> change realm name in saved variables lua files
+        If Directory.Exists(savedVariablesPath) Then
+            Directory.CreateDirectory(savedVariablesPathBackup)
+            '>>> copy files
+            For Each newPath In Directory.GetFiles(savedVariablesPath, "*.*", SearchOption.AllDirectories)
+                File.Copy(newPath, newPath.Replace(savedVariablesPath, savedVariablesPathBackup), True)
+            Next
+            For Each newPath In Directory.GetFiles(savedVariablesPath, "*.lua", SearchOption.AllDirectories)
+                Dim filecontent As String = File.ReadAllText(newPath, Encoding.UTF8)
+                filecontent = filecontent.Replace(Me.TextBoxOldRealmName.Text, Me.TextBoxNewaRealmName.Text)
+                File.WriteAllText(newPath, filecontent, Encoding.UTF8)
+            Next
+        End If
         '>>> D O N E
         MsgBox("Replacement done")
     End Sub
