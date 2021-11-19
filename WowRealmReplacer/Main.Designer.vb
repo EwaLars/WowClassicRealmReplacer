@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Main
     Inherits System.Windows.Forms.Form
 
     'Das Formular überschreibt den Löschvorgang, um die Komponentenliste zu bereinigen.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,8 +20,9 @@ Partial Class Main
     'Hinweis: Die folgende Prozedur ist für den Windows Form-Designer erforderlich.
     'Das Bearbeiten ist mit dem Windows Form-Designer möglich.  
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.TextBoxPathToWoW = New System.Windows.Forms.TextBox()
         Me.TextBoxOldRealmName = New System.Windows.Forms.TextBox()
         Me.TextBoxNewaRealmName = New System.Windows.Forms.TextBox()
@@ -34,6 +35,10 @@ Partial Class Main
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.TextBoxAccountName = New System.Windows.Forms.TextBox()
         Me.LabelAccountName = New System.Windows.Forms.Label()
+        Me.DGV = New System.Windows.Forms.DataGridView()
+        Me.OldCharNameColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NewCharNameColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        CType(Me.DGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TextBoxPathToWoW
@@ -143,12 +148,42 @@ Partial Class Main
         Me.LabelAccountName.TabIndex = 1
         Me.LabelAccountName.Text = "Account Name"
         '
+        'DGV
+        '
+        Me.DGV.AllowDrop = True
+        Me.DGV.AllowUserToResizeRows = False
+        Me.DGV.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OldCharNameColumn, Me.NewCharNameColumn})
+        Me.DGV.Location = New System.Drawing.Point(12, 159)
+        Me.DGV.Name = "DGV"
+        Me.DGV.RowHeadersVisible = False
+        Me.DGV.Size = New System.Drawing.Size(776, 163)
+        Me.DGV.TabIndex = 4
+        '
+        'OldCharNameColumn
+        '
+        Me.OldCharNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.OldCharNameColumn.FillWeight = 50.0!
+        Me.OldCharNameColumn.HeaderText = "Old Char Name"
+        Me.OldCharNameColumn.Name = "OldCharNameColumn"
+        '
+        'NewCharNameColumn
+        '
+        Me.NewCharNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.NewCharNameColumn.FillWeight = 50.0!
+        Me.NewCharNameColumn.HeaderText = "New Char Name"
+        Me.NewCharNameColumn.Name = "NewCharNameColumn"
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.ButtonCancel
-        Me.ClientSize = New System.Drawing.Size(800, 162)
+        Me.ClientSize = New System.Drawing.Size(800, 334)
+        Me.Controls.Add(Me.DGV)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonGo)
         Me.Controls.Add(Me.ButtonBrowse)
@@ -161,10 +196,12 @@ Partial Class Main
         Me.Controls.Add(Me.TextBoxNewaRealmName)
         Me.Controls.Add(Me.TextBoxOldRealmName)
         Me.Controls.Add(Me.TextBoxPathToWoW)
-        Me.MaximumSize = New System.Drawing.Size(816, 201)
-        Me.MinimumSize = New System.Drawing.Size(816, 183)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximumSize = New System.Drawing.Size(816, 684)
+        Me.MinimumSize = New System.Drawing.Size(816, 373)
         Me.Name = "Main"
         Me.Text = "WoW Realm Replacer"
+        CType(Me.DGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -182,4 +219,7 @@ Partial Class Main
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents TextBoxAccountName As TextBox
     Friend WithEvents LabelAccountName As Label
+    Friend WithEvents DGV As DataGridView
+    Friend WithEvents OldCharNameColumn As DataGridViewTextBoxColumn
+    Friend WithEvents NewCharNameColumn As DataGridViewTextBoxColumn
 End Class

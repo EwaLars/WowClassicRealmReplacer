@@ -49,13 +49,33 @@ Public Class Main
         For Each newPath In Directory.GetFiles(oldRealmFolder, "*.*", SearchOption.AllDirectories)
             File.Copy(newPath, newPath.Replace(oldRealmFolder, newRealmFolder), True)
         Next
-        '>>> change realm name in lua files
+        '>>> change realm name and char name in lua files
         For Each newPath In Directory.GetFiles(newRealmFolder, "*.lua", SearchOption.AllDirectories)
             Dim filecontent As String = File.ReadAllText(newPath, Encoding.UTF8)
             filecontent = filecontent.Replace(Me.TextBoxOldRealmName.Text, Me.TextBoxNewaRealmName.Text)
+            '>>> renaming chars
+            For Each row As DataGridViewRow In DGV.Rows
+                If row.Cells.Item(NewCharNameColumn.Name).Value IsNot Nothing AndAlso row.Cells.Item(OldCharNameColumn.Name).Value IsNot Nothing Then
+                    Dim newCharName As String = row.Cells.Item(NewCharNameColumn.Name).Value.ToString
+                    Dim oldCharName As String = row.Cells.Item(OldCharNameColumn.Name).Value.ToString
+                    filecontent = filecontent.Replace(oldCharName, newCharName)
+                End If
+            Next
             File.WriteAllText(newPath, filecontent, Encoding.UTF8)
         Next
-        '>>> change realm name in saved variables lua files
+        '>>> renaming character folders
+        For Each row As DataGridViewRow In DGV.Rows
+            If row.Cells.Item(NewCharNameColumn.Name).Value IsNot Nothing AndAlso row.Cells.Item(OldCharNameColumn.Name).Value IsNot Nothing Then
+                Dim newCharName As String = row.Cells.Item(NewCharNameColumn.Name).Value.ToString
+                Dim oldCharName As String = row.Cells.Item(OldCharNameColumn.Name).Value.ToString
+                Dim oldCharFolder As String = Path.Combine(newRealmFolder, oldCharName)
+                Dim newCharFolder As String = Path.Combine(newRealmFolder, newCharName)
+                If Directory.Exists(oldCharFolder) Then
+                    Directory.Move(oldCharFolder, newCharFolder)
+                End If
+            End If
+        Next
+        '>>> change realm name and char name in saved variables lua files
         If Directory.Exists(savedVariablesPath) Then
             Directory.CreateDirectory(savedVariablesPathBackup)
             '>>> copy files
@@ -65,6 +85,14 @@ Public Class Main
             For Each newPath In Directory.GetFiles(savedVariablesPath, "*.lua", SearchOption.AllDirectories)
                 Dim filecontent As String = File.ReadAllText(newPath, Encoding.UTF8)
                 filecontent = filecontent.Replace(Me.TextBoxOldRealmName.Text, Me.TextBoxNewaRealmName.Text)
+                '>>> renaming chars
+                For Each row As DataGridViewRow In DGV.Rows
+                    If row.Cells.Item(NewCharNameColumn.Name).Value IsNot Nothing AndAlso row.Cells.Item(OldCharNameColumn.Name).Value IsNot Nothing Then
+                        Dim newCharName As String = row.Cells.Item(NewCharNameColumn.Name).Value.ToString
+                        Dim oldCharName As String = row.Cells.Item(OldCharNameColumn.Name).Value.ToString
+                        filecontent = filecontent.Replace(oldCharName, newCharName)
+                    End If
+                Next
                 File.WriteAllText(newPath, filecontent, Encoding.UTF8)
             Next
         End If
@@ -79,4 +107,6 @@ Public Class Main
     Private Sub Main_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         MsgBox($"This tool is in experimental state{Environment.NewLine}Be sure to backup your WTF folder before you begin!{Environment.NewLine}Use at your own risk!")
     End Sub
+
+
 End Class
